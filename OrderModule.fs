@@ -13,6 +13,9 @@ let printPayment payment total =
         printfn "The order total %f has been fully paid in cash." total
     | CreditCard(ccR) ->
         printfn "The order total %f has been fully paid using a credit card from account %s." total ccR.bankAccount
+    | MobilePayType(mpR) ->
+    printfn "The order total %f has been fully paid using MobilePay %s." total mpR.telefoneNumber
+
 
 // Function to calculate the total price of an order
 let orderTotal (order: OrderRecord) = calculatePriceTotal order.products
