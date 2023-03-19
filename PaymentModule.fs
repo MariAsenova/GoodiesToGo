@@ -1,4 +1,4 @@
-module Payment
+module PaymentM
 
 type CashType = { amount: float }
 type CreditCardType = {  amount: float; banckAccount: string }
