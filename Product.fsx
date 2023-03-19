@@ -1,3 +1,5 @@
+module Product
+
 // types of drinks using discriminated union
 
 type DrinkSize =

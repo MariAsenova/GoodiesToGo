@@ -1,3 +1,5 @@
+module Customer
+
 type VIAPersonType = { viaId: string }
 type SOSUPersonType = { sosuId: string }
 
