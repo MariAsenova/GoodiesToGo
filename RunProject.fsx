@@ -1,5 +1,9 @@
 open System
 
+(*
+    Product Moduel 
+*)
+
 // Helper function to calculate price with VAT
 let applyVAT (percentage : int) (price : float) = 
     price * (1.0 + Convert.ToDouble(percentage) / 100.0)
@@ -69,11 +73,19 @@ let calculatePriceTotal (products: Product list) =
     list. Finally, calculatePriceTotal calls calcTotalRec with the initial products list and an initial accumulated total of 0.0
     *) 
 
+(*
+    Payment Module
+*)
+
 type CashType = { amount: float }
 type CreditCardType = {  amount: float; banckAccount: string }
 type MobilePayType = { amount: float; telefoneNumber: string }
 
 type Payment = Cash of CashType | CreditCard of CreditCardType | MobilePay of MobilePayType
+
+(*
+    Order Module
+*)
 
 // Record type for an order containing a list of products and a payment method
 type OrderRecord = { products: Product List; payment: Payment }
@@ -113,3 +125,43 @@ let orderAgent = MailboxProcessor<OrderProductMsg>.Start(fun inbox ->
     }
     processMessages)
 
+    (*
+        Customer Module
+    *)
+
+type VIAPersonType = { viaId: string }
+type SOSUPersonType = { sosuId: string }
+
+type Customer = VIAPerson of VIAPersonType | SOSUPerson of SOSUPersonType
+
+(*
+    Test Module
+*)
+
+// Create individual products
+let product1 = Product.Drink(DrinkBase.Coffee { size = Size.Small; coffeeType = CoffeeType.Espresso }, 1)
+let product2 = Product.Drink(DrinkBase.Coffee { size = Size.Large; coffeeType = CoffeeType.Americano }, 1)
+let product3 = Product.Drink(DrinkBase.Tea { size = Size.Medium; teaType = TeaType.Green }, 2)
+let product4 = Product.Drink(DrinkBase.Juice { size = Size.Large; juiceType = JuiceType.Orange }, 10)
+let product5 = Product.Drink(DrinkBase.Coffee { size = Size.Medium; coffeeType = CoffeeType.Latte }, 25)
+
+// Create a list of products for the order
+let products = [ product1 ; product2 ; product3 ; product4 ; product5]
+
+// Create a payment method for the order
+let payment = Payment.CreditCard { banckAccount = "DK00559319"; amount = 0.0 }
+
+// Create an order record with the products and payment method
+let order = { products = products; payment = payment }
+
+// Call the payOrder function from the OrderM module to process the order and print payment details
+payOrder order
+
+// Send the order message to the order agent from the OrderM module
+let orderMsg = OrderProductMsg.Order order
+orderAgent.Post orderMsg
+
+// Send a comment message to the order agent from the OrderM module
+let comment = "My latte did not have enough milk"
+let commentMsg = OrderProductMsg.LeaveAComment comment
+orderAgent.Post commentMsg
