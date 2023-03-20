@@ -7,14 +7,14 @@ open OrderM
 let product1 = Product.Drink(DrinkBase.Coffee { size = Size.Small; coffeeType = CoffeeType.Espresso }, 1)
 let product2 = Product.Drink(DrinkBase.Coffee { size = Size.Large; coffeeType = CoffeeType.Americano }, 1)
 let product3 = Product.Drink(DrinkBase.Tea { size = Size.Medium; teaType = TeaType.Green }, 2)
-let product5 = Product.Drink(DrinkBase.Juice { size = Size.Large; juiceType = JuiceType.Orange }, 10)
-let product8 = Product.Drink(DrinkBase.Coffee { size = Size.Medium; coffeeType = CoffeeType.Latte }, 25)
+let product4 = Product.Drink(DrinkBase.Juice { size = Size.Large; juiceType = JuiceType.Orange }, 10)
+let product5 = Product.Drink(DrinkBase.Coffee { size = Size.Medium; coffeeType = CoffeeType.Latte }, 25)
 
 // Create a list of products for the order
-let products = [ product1 ; product2 ; product3 ; product4 ; product5 ; product6 ; product7 ]
+let products = [ product1 ; product2 ; product3 ; product4 ; product5]
 
 // Create a payment method for the order
-let payment = Payment.CreditCard { bankAccount = "DK00559319"; amount = 0.0 }
+let payment = Payment.CreditCard { banckAccount = "DK00559319"; amount = 0.0 }
 
 // Create an order record with the products and payment method
 let order = { products = products; payment = payment }
