@@ -142,8 +142,8 @@ type Customer = VIAPerson of VIAPersonType | SOSUPerson of SOSUPersonType
 let product1 = Product.Drink(DrinkBase.Coffee { size = Size.Small; coffeeType = CoffeeType.Espresso }, 1)
 let product2 = Product.Drink(DrinkBase.Coffee { size = Size.Large; coffeeType = CoffeeType.Americano }, 1)
 let product3 = Product.Drink(DrinkBase.Tea { size = Size.Medium; teaType = TeaType.Green }, 2)
-let product4 = Product.Drink(DrinkBase.Juice { size = Size.Large; juiceType = JuiceType.Orange }, 10)
-let product5 = Product.Drink(DrinkBase.Coffee { size = Size.Medium; coffeeType = CoffeeType.Latte }, 25)
+let product4 = Product.Drink(DrinkBase.Juice { size = Size.Large; juiceType = JuiceType.Orange }, 1)
+let product5 = Product.Drink(DrinkBase.Coffee { size = Size.Medium; coffeeType = CoffeeType.Latte }, 1)
 
 // Create a list of products for the order
 let products = [ product1 ; product2 ; product3 ; product4 ; product5]
