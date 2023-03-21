@@ -8,7 +8,7 @@ open System
 let applyVAT (percentage : int) (price : float) = 
     price * (1.0 + Convert.ToDouble(percentage) / 100.0)
 
-// Types for different sizes and drink varieties
+// Types for different sizes of drinks
 type Size = Small | Medium | Large
 type CoffeeType = Americano | Latte | Espresso
 type TeaType = Green | Black | Jasmine
@@ -41,7 +41,7 @@ let priceSizeJuice (juice : JuiceRecord) =
     | Medium -> 12.0
     | Large -> 14.0
 
-// Function to calculate the price of a drink matching type
+// Function to calculate the price of a drink matching type and VAT
 let priceDrink (drink : DrinkBase) = 
     match drink with 
     | Coffee(coffeeRecord) -> priceSizeCoffee(coffeeRecord) |> applyVAT 25
@@ -79,7 +79,7 @@ let calculatePriceTotal (products: Product list) =
 
 type CashType = { amount: float }
 type CreditCardType = {  amount: float; banckAccount: string }
-type MobilePayType = { amount: float; telefoneNumber: string }
+type MobilePayType = { amount: float; telefonNumber: string }
 
 type Payment = Cash of CashType | CreditCard of CreditCardType | MobilePay of MobilePayType
 
@@ -98,7 +98,7 @@ let printPayment payment total =
     | CreditCard(ccR) ->
         printfn "The order total %f has been fully paid using a credit card from account %s." total ccR.banckAccount
     | MobilePay(mpR) ->
-        printfn "The order total %f has been fully paid using MobilePay %s." total mpR.telefoneNumber
+        printfn "The order total %f has been fully paid using MobilePay %s." total mpR.telefonNumber
 
 
 // Function to calculate the total price of an order
@@ -121,7 +121,7 @@ let orderAgent = MailboxProcessor<OrderProductMsg>.Start(fun inbox ->
         match msg with 
         | Order(orderRecord) -> payOrder orderRecord // Process the order and print payment details
         | LeaveAComment(comment) -> printfn "%s" comment // Print the comment
-        return! processMessages // Continue processing messages
+        return! processMessages 
     }
     processMessages)
 
